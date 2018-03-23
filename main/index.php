@@ -1,100 +1,55 @@
 <?php
 require_once '../php/Connect.php';
+require_once '../php/Escape.php';
+error_reporting(E_ALL);
 
-// session_start();
-// if(!$_SESSION['flug']){
-//  header('Location: ../');
-//  exit();
-// }
-try{
- $db = connect();
- $stmt = $db->prepare('SELECT * FROM works WHERE id=4');
- $stmt->execute();
- $row = $stmt->fetch(PDO::FETCH_ASSOC);
+session_start();
+if(!$_SESSION['user']){
+ header('Location: ../');
+ exit();
+}
 
- $tag = '';
- foreach(explode(',', $row['tag']) as $value) {
-  $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
-  $stmt_tag = $db->prepare($sql_tag);
-  $stmt_tag->execute();
-  $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
-  $tag .= '<li>'.$row_tag['tname'].'</li>';
- }
- $scope = '';
- foreach(explode(',', $row['scope']) as $value) {
-  $sql_scope = 'SELECT * FROM scopes WHERE sid='.$value;
-  $stmt_scope = $db->prepare($sql_scope);
-  $stmt_scope->execute();
-  $row_scope = $stmt_scope->fetch(PDO::FETCH_ASSOC);
-  $scope .= '<li>'.$row_scope['sname'].'</li>';
- }
-?>
-<!DOCTYPE html>
-<html lang="ja">
- <head>
-  <meta charset="utf-8">
-  <title><?php print $row['title'] ?>| Client Works</title>
-  <link rel="stylesheet" href="../css/style.css">
- </head>
- <body>
-  <header>
-   <h1>Client Works</h1>
-  </header>
-  <main>
-  <article>
-   <section class="info">
-    <div class="head">
-     <h2><?php print $row['title'] ?></h2>
-     <ul>
-      <?php print $tag."\n" ?>
-     </ul>
-    </div>
-    <div class="detail">
-     <?php
-     if($row['client']){
-      print '<dl><dt>Client</dt><dd>'.$row['client'].'</dd></dl>'."\n\t";
-     }
-     if($row['url']){
-      print '<dl><dt>URL</dt><dd><a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a></dd></dl>'."\n";
-     }
-     ?>
-     <dl>
-      <dt>Scope</dt>
-      <dd>
-       <ul>
-        <?php print $scope ?>
-       </ul>
-      </dd>
-     </dl>
-     <?php
-     if($row['source']){
-      print '<dl><dt>Source</dt><dd>'.$row['source'].'</dd></dl>'."\n\t";
-     }
-     ?>
-     <dl>
-      <dt></dt>
-      <dd></dd>
-     </dl>
-     <dl>
-      <dt></dt>
-      <dd></dd>
-     </dl>
-     <dl>
-      <dt></dt>
-      <dd></dd>
-     </dl>
-    </div>
-   </section>
-   <section class="content">
-
-   </section>
-  </article>
-  </main>
-  <?php
+$page = '';
+if(!$_GET){
+ $page = 0;
+}else if(isset($_GET['id'])){
+ $id = es($_GET['id']);
+ try{
+  $db = connect();
+  $stmt = $db->prepare('SELECT * FROM works WHERE id='.$id);
+  $stmt->execute();
+  if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+   $page = 1;
+   $tag = '';
+   foreach(explode(',', $row['tag']) as $value) {
+    $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
+    $stmt_tag = $db->prepare($sql_tag);
+    $stmt_tag->execute();
+    $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
+    $tag .= '<li>'.$row_tag['tname'].'</li>';
+   }
+   $scope = '';
+   foreach(explode(',', $row['scope']) as $value) {
+    $sql_scope = 'SELECT * FROM scopes WHERE sid='.$value;
+    $stmt_scope = $db->prepare($sql_scope);
+    $stmt_scope->execute();
+    $row_scope = $stmt_scope->fetch(PDO::FETCH_ASSOC);
+    $scope .= '<li>'.$row_scope['sname'].'</li>';
+   }
    $db = NULL;
-  }catch(PDOException $e){
-   exit('読み込みエラーが発生しました。');
+  }else{
+   $page = 0;
+   $stmt = $db->prepare('SELECT * FROM works');
+   $stmt->execute();
+   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   }
-  ?>
- </body>
-</html>
+ }catch(PDOException $e){
+  exit('読み込みエラーが発生しました。');
+ }
+}
+
+switch ($page) {
+ case 1: include('tmp_article.php');break;
+ default: include('tmp_list.php');break;
+}
+$db = NULL;

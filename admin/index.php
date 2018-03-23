@@ -26,7 +26,7 @@ if(!empty($_POST)){
  }
  $tmp = $_FILES['tmb']['tmp_name'];
  $tmb = mb_convert_encoding($_FILES['tmb']['name'], "SJIS-WIN", 'UTF-8');
- if(!move_uploaded_file($tmp, '../imgs/content/'.$tmb)){
+ if(!move_uploaded_file($tmp, '../main/imgs/'.$tmb)){
   $upload_err = 'アップロードに失敗しました。';
  }
  if(isset($upload_err)){
@@ -35,8 +35,8 @@ if(!empty($_POST)){
 
  try{
   $db = connect();
-  $sql = 'INSERT INTO works(title, client, url, releaseDate, tag, scope, tmb, summary)
-          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :tmb, :summary)';
+  $sql = 'INSERT INTO works(title, client, url, releaseDate, tag, scope, thumb, summary)
+          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :thumb, :summary)';
   $stmt = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
   $stmt->execute(array(':title' => $title,
                        ':client' => $client,
@@ -44,7 +44,7 @@ if(!empty($_POST)){
                        ':releaseDate' => $releaseDate,
                        ':tag' => $tag,
                        ':scope' => $scope,
-                       ':tmb' => $tmb,
+                       ':thumb' => $tmb,
                        ':summary' => $summary));
   $db = NULL;
  }catch(PDOException $e){
@@ -122,9 +122,9 @@ if(!empty($_POST)){
       <?php
       try{
        $db = connect();
-       $tag_stmt = $db->prepare('SELECT * FROM scopes');
-       $tag_stmt->execute();
-       while($srow = $tag_stmt->fetch(PDO::FETCH_ASSOC)){
+       $scope_stmt = $db->prepare('SELECT * FROM scopes');
+       $scope_stmt->execute();
+       while($srow = $scope_stmt->fetch(PDO::FETCH_ASSOC)){
         print '<label><input type="checkbox" name="scope[]" value="'.$srow["sid"].'">'.$srow["sname"].'</label>';
        }
        $db = NULL;
