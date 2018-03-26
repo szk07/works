@@ -71,24 +71,13 @@ try{
  switch ($page) {
   case 1: include('tmp_article.php');break;
   case 2:
-   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-   $tag_stmt = $db->prepare('SELECT * FROM tags');
-   $tag_stmt->execute();
-   $row_id = [];
-   $select_stmt = $db->prepare('SELECT * FROM works ORDER BY releaseDate desc');
-   $select_stmt->execute();
-   while($select_row = $select_stmt->fetch(PDO::FETCH_ASSOC)){
-    if(strpos($row['tag'], $tag)) $row_id .= $row['id'];
-   }
+   $stmt = stmtWorks();
+   $tag_stmt = stmtTags();
+   $row_id = selectTag($tag);
    include('tmp_index.php');
   default:
-   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-   $tag_stmt = $db->prepare('SELECT * FROM tags');
-   $tag_stmt->execute();
+   $stmt = stmtWorks();
+   $tag_stmt = stmtTags();
    include('tmp_index.php');
  }
 
