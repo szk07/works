@@ -8,7 +8,7 @@
  </head>
  <body id="works">
   <header>
-   <h1>Client Works</h1>
+   <h1><a href="./">Client Works</a></h1>
    <ul class="filter">
     <li><a href="./">ALL</a></li>
     <?php
@@ -29,16 +29,17 @@
     try{
      $stmt->execute();
      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $tag = '';
-      foreach(explode(',', $row['tag']) as $value) {
-       $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
-       $stmt_tag = $db->prepare($sql_tag);
-       $stmt_tag->execute();
-       $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
-       $tag .= '<li>'.$row_tag['tname'].'</li>';
-      }
-print <<< EOD
-      <li><a href="?id={$row['id']}">
+      if(strpos($select_tag, $row['id']) !== false){
+       $tag = '';
+       foreach(explode(',', $row['tag']) as $value) {
+        $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
+        $stmt_tag = $db->prepare($sql_tag);
+        $stmt_tag->execute();
+        $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
+        $tag .= '<li>'.$row_tag['tname'].'</li>';
+       }
+       print <<< EOD
+       <li><a href="?id={$row['id']}">
        <article>
        <div class="image"><img src="imgs/{$row['thumb']}" alt="test"></div>
        <div class="caption">
@@ -46,9 +47,9 @@ print <<< EOD
         <ul class="tag">{$tag}</ul>
        </div>
        </article>
-      </a></li>
-
+       </a></li>
 EOD;
+      }
      }
      $db = NULL;
     }catch(PDOException $e){

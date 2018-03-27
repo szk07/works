@@ -10,97 +10,60 @@ $mediaQuery-pc: 1000px;
 
 @import "set/mixin";
 @import "set/base";
+ul{
+ list-style: none;
+ margin: 0;
+ padding: 0;
+}
+
 
 /* Contents */
 @import "cont/works";
+@import "cont/login";
 
-$admin-color: #f16272;
-.login_wrap{
- background: #fff;
- box-sizing: border-box;
- max-width: 350px;
- margin: 10rem auto 0;
- padding: 20px 30px;
- h1{
-  font-size: 3rem;
-  text-align: center;
-  margin: 10px 0;
- }
- button{
-  display: block;
-  background: $admin-color;
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  text-transform: uppercase;
-  letter-spacing: .1rem;
-  width: 100%;
-  height: 50px;
-  margin: 50px auto 20px;
-  cursor: pointer;
-  transition: .3s;
-  &:hover{
-   background: #ee3e52;
+#works{
+ header{
+  padding: 50px 0;
+  h1{
+   // font-family: 'Amatic SC', cursive;
+   text-align: center;
+  }
+  .filter{
+   display: flex;
+   justify-content: center;
+   margin: 20px 0;
+   li:not(:last-child)::after{
+    content: '/';
+    color: #ccc;
+    padding: 0 20px;
+   }
   }
  }
-}
-.field{
- position: relative;
- margin: 0 auto 30px;
- padding: 20px 6px 6px;
- border-bottom: 2px solid #ddd;
- &::before{
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  border-bottom: 2px solid $admin-color;
-  width: 0;
-  transition: width 0.5s;
- }
- &.focus{
-  &::before{
-   width: 100%;
-  }
-  label{
-   bottom: 3rem;
-   color: #ccc;
-   font-size: 1.2rem;
-   font-weight: normal;
-  }
- }
- input{
-  display: block;
-  background: none;
-  box-sizing: border-box;
-  border: 0;
-  color: #555;
-  font-size: 1.8rem;
-  width: 100%;
-  &:focus{
-   outline: 0;
+ .works-list{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+  article{
+   position: relative;
+   width: 500px;
+   .caption{
+    h2{
+     font-size: 1.8rem;
+     text-align: left;
+     margin: 0;
+    }
+    .tag{
+     display: flex;
+     font-size: 1.2rem;
+    }
+   }
+   .image{
+    img{
+     display: block;
+    }
+   }
   }
  }
- label{
-  position: absolute;
-  bottom: 0;
-  left: 6px;
-  color: #999;
-  font-size: 1.8rem;
-  font-weight: bolder;
-  transition: .5s;
- }
-}
-.note{
- color: #888;
- font-size: 1.2rem;
- width: 350px;
- margin: 20px auto 0;
-}
-.error{
- background: rgba(214, 48, 49, 0.1);
- color: #d63031;
- font-size: 1.4rem;
- text-align: center;
- padding: 10px 0;
 }

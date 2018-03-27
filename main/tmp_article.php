@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <title><?=$row['title'] ?>| Client Works</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Bubbler+One" rel="stylesheet">
  </head>
- <body>
+ <body id="works">
   <header>
    <h1><a href="./">Client Works</a></h1>
   </header>

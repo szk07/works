@@ -48,47 +48,36 @@ try{
  function stmtWorks(){
   global $db;
   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
-  $stmt = $db->prepare($sql);
-  return $stmt->execute();
+  return $stmt = $db->prepare($sql);
  }
  function stmtTags(){
   global $db;
-  $tag_stmt = $db->prepare('SELECT * FROM tags');
-  return $tag_stmt->execute();
+  return $tag_stmt = $db->prepare('SELECT * FROM tags');
  }
  function selectTag($tag){
   global $db;
-  $row_id = [];
-  $select_stmt = $db->prepare('SELECT * FROM works ORDER BY releaseDate desc');
+  $row_id = '';
+  $select_stmt = $db->prepare('SELECT * FROM works');
   $select_stmt->execute();
   while($select_row = $select_stmt->fetch(PDO::FETCH_ASSOC)){
-   if(strpos($row['tag'], $tag)) $row_id .= $row['id'];
+   if(strpos($select_row['tag'], $tag) !== false) $row_id .= $select_row['id'].' ';
   }
   return $row_id;
  }
 
-
  switch ($page) {
-  case 1: include('tmp_article.php');break;
+  case 1:
+   include('tmp_article.php');
+   break;
   case 2:
-   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-   $tag_stmt = $db->prepare('SELECT * FROM tags');
-   $tag_stmt->execute();
-   $row_id = [];
-   $select_stmt = $db->prepare('SELECT * FROM works ORDER BY releaseDate desc');
-   $select_stmt->execute();
-   while($select_row = $select_stmt->fetch(PDO::FETCH_ASSOC)){
-    if(strpos($row['tag'], $tag)) $row_id .= $row['id'];
-   }
-   include('tmp_index.php');
+   $stmt = stmtWorks();
+   $tag_stmt = stmtTags();
+   $select_tag = selectTag($tag);
+   include('tmp_select.php');
+   break;
   default:
-   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-   $tag_stmt = $db->prepare('SELECT * FROM tags');
-   $tag_stmt->execute();
+   $stmt = stmtWorks();
+   $tag_stmt = stmtTags();
    include('tmp_index.php');
  }
 
