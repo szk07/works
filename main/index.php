@@ -11,39 +11,6 @@ if(!$_SESSION['user']){
 
 try{
  $db = connect();
- if(isset($_GET['id'])){
-  $id = es($_GET['id']);
-  $sql = 'SELECT * FROM works WHERE id='.$id;
-  $stmt = $db->prepare($sql);
-  $stmt->execute();
-  if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-   $page = 1;
-   $tag = '';
-   foreach(explode(',', $row['tag']) as $value) {
-    $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
-    $stmt_tag = $db->prepare($sql_tag);
-    $stmt_tag->execute();
-    $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
-    $tag .= '<li>'.$row_tag['tname'].'</li>';
-   }
-   $scope = '';
-   foreach(explode(',', $row['scope']) as $value) {
-    $sql_scope = 'SELECT * FROM scopes WHERE sid='.$value;
-    $stmt_scope = $db->prepare($sql_scope);
-    $stmt_scope->execute();
-    $row_scope = $stmt_scope->fetch(PDO::FETCH_ASSOC);
-    $scope .= '<li>'.$row_scope['sname'].'</li>';
-   }
-   $db = NULL;
-  }else{
-   $page = 0;
-  }
- }else if(isset($_GET['tag'])){
-  $page = 2;
-  $tag = es($_GET['tag']);
- }else{
-  $page = 0;
- }
 
  function stmtWorks(){
   global $db;
@@ -64,6 +31,45 @@ try{
   }
   return $row_id;
  }
+ function articleTag($value){
+  global $db;
+  $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
+  $stmt_tag = $db->prepare($sql_tag);
+  $stmt_tag->execute();
+  $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
+  return $row_tag['tname'];
+ }
+
+ if(isset($_GET['id'])){
+  $id = es($_GET['id']);
+  $sql = 'SELECT * FROM works WHERE id='.$id;
+  $stmt = $db->prepare($sql);
+  $stmt->execute();
+  if($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+   $page = 1;
+   $tag = '';
+   foreach(explode(',', $row['tag']) as $value) {
+    $tname = articleTag($value);
+    $tag .= '<li>'.$tname.'</li>';
+   }
+   $scope = '';
+   foreach(explode(',', $row['scope']) as $value) {
+    $sql_scope = 'SELECT * FROM scopes WHERE sid='.$value;
+    $stmt_scope = $db->prepare($sql_scope);
+    $stmt_scope->execute();
+    $row_scope = $stmt_scope->fetch(PDO::FETCH_ASSOC);
+    $scope .= '<li>'.$row_scope['sname'].'</li>';
+   }
+   $db = NULL;
+  }else{
+   $page = 0;
+  }
+ }else if(isset($_GET['tag'])){
+  $page = 2;
+  $tag = es($_GET['tag']);
+ }else{
+  $page = 0;
+ }
 
  switch ($page) {
   case 1:
@@ -71,13 +77,17 @@ try{
    break;
   case 2:
    $stmt = stmtWorks();
+   $stmt->execute();
    $tag_stmt = stmtTags();
+   $tag_stmt->execute();
    $select_tag = selectTag($tag);
-   include('tmp_select.php');
+   include('tmp_index.php');
    break;
   default:
    $stmt = stmtWorks();
+   $stmt->execute();
    $tag_stmt = stmtTags();
+   $tag_stmt->execute();
    include('tmp_index.php');
  }
 

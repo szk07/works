@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <title>Client Works</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Bubbler+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
  </head>
  <body id="works">
   <header>
-   <h1>Client Works</h1>
+   <h1><a href="./">Client Works</a></h1>
    <ul class="filter">
     <li><a href="./">ALL</a></li>
     <?php
@@ -26,29 +27,40 @@
   <main>
    <ul class="works-list">
     <?php
-    try{
-     $stmt->execute();
-     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $tag = '';
-      foreach(explode(',', $row['tag']) as $value) {
-       $sql_tag = 'SELECT * FROM tags WHERE tid='.$value;
-       $stmt_tag = $db->prepare($sql_tag);
-       $stmt_tag->execute();
-       $row_tag = $stmt_tag->fetch(PDO::FETCH_ASSOC);
-       $tag .= '<li>'.$row_tag['tname'].'</li>';
-      }
-print <<< EOD
-      <li><a href="?id={$row['id']}">
-       <article>
+    function articleBody($row, $tag){
+     print <<< EOD
+     <li><a href="?id={$row['id']}">
+      <article>
        <div class="image"><img src="imgs/{$row['thumb']}" alt="test"></div>
-       <div class="caption">
-        <h2>{$row['title']}</h2>
+       <div class="label">
         <ul class="tag">{$tag}</ul>
+        <h2>{$row['title']}</h2>
        </div>
-       </article>
-      </a></li>
-
+      </article>
+     </a></li>
 EOD;
+    }
+    try{
+     if(isset($select_tag)){
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+       if(strpos($select_tag, $row['id']) !== false){
+        $tag = '';
+        foreach(explode(',', $row['tag']) as $value) {
+         $tname = articleTag($value);
+         $tag .= '<li>'.$tname.'</li>';
+        }
+        articleBody($row, $tag);
+       }
+      }
+     }else{
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+       $tag = '';
+       foreach(explode(',', $row['tag']) as $value) {
+        $tname = articleTag($value);
+        $tag .= '<li>'.$tname.'</li>';
+       }
+       articleBody($row, $tag);
+      }
      }
      $db = NULL;
     }catch(PDOException $e){

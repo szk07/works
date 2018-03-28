@@ -13,6 +13,7 @@ if(!empty($_POST)){
  $client = !empty($_POST['client']) ? es($_POST['client']) : '';
  $url = !empty($_POST['url']) ? es($_POST['url']) : '';
  $releaseDate = !empty($_POST['releaseDate']) ? es($_POST['releaseDate']) : '';
+ $flow = es($_POST['flow']);
  $summary = es($_POST['summary']);
  if(!empty($_POST['tag']) && is_array($_POST['tag'])){
   $tag = implode(',', $_POST['tag']);
@@ -36,7 +37,7 @@ if(!empty($_POST)){
  try{
   $db = connect();
   $sql = 'INSERT INTO works(title, client, url, releaseDate, tag, scope, thumb, summary)
-          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :thumb, :summary)';
+          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :thumb, :flow, :summary)';
   $stmt = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
   $stmt->execute(array(':title' => $title,
                        ':client' => $client,
@@ -45,6 +46,7 @@ if(!empty($_POST)){
                        ':tag' => $tag,
                        ':scope' => $scope,
                        ':thumb' => $tmb,
+                       ':flow' => $flow,
                        ':summary' => $summary));
   $db = NULL;
  }catch(PDOException $e){
@@ -141,6 +143,10 @@ if(!empty($_POST)){
     <dl>
      <dt>サムネイル画像</dt>
      <dd><input type="file" name="tmb" required></dd>
+    </dl>
+    <dl>
+     <dt>制作フロー<br>（100文字程度）</dt>
+     <dd><input type="text" name="flow" maxlength="100" required></dd>
     </dl>
     <textarea name="summary" rows="8" cols="80" required></textarea>
     <input type="submit" value="登録">

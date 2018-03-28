@@ -150,6 +150,14 @@ ul {
   padding: 0;
 }
 
+a:hover img {
+  opacity: .7;
+}
+
+a img {
+  transition: .3s;
+}
+
 /* Contents */
 .login_wrap {
   background: #fff;
@@ -252,50 +260,140 @@ ul {
   padding: 10px 0;
 }
 
+#works {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: lighter;
+}
+
 #works header {
-  padding: 50px 0;
+  min-height: 160px;
+  padding: 80px 0 50px;
 }
 
 #works header h1 {
+  font-size: 6rem;
   text-align: center;
+}
+
+#works header h1 a:hover {
+  color: #111;
 }
 
 #works header .filter {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 50px 0 30px;
 }
 
-#works header .filter li:not(:last-child)::after {
-  content: '/';
-  color: #ccc;
+#works header .filter li {
   padding: 0 20px;
+}
+
+#works header .flow {
+  color: #888;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 30px 0;
+}
+
+#works main {
+  display: block;
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
 #works .works-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
-  max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
+}
+
+#works .works-list::after {
+  content: '';
+  display: block;
+  width: 500px;
 }
 
 #works .works-list article {
   position: relative;
-  width: 500px;
+  max-width: 500px;
+  margin-bottom: 30px;
 }
 
-#works .works-list article .caption h2 {
-  font-size: 1.8rem;
+#works .works-list article .label h2 {
+  font-size: 2rem;
   text-align: left;
   margin: 0;
 }
 
-#works .works-list article .caption .tag {
-  display: flex;
+#works .works-list article .image img {
+  max-width: 100%;
+  display: block;
+}
+
+#works .works-list .tag {
+  color: #888;
   font-size: 1.2rem;
 }
 
-#works .works-list article .image img {
-  display: block;
+#works .content {
+  display: flex;
+}
+
+#works .content .info {
+  width: 340px;
+  padding: 0 20px;
+}
+
+#works .content .info h2 {
+  font-size: 3rem;
+  text-align: left;
+  margin: 0;
+}
+
+#works .content .info .detail {
+  margin-top: 50px;
+}
+
+#works .content .info .detail dt {
+  color: #888;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+#works .content .info .detail dt::after {
+  content: ':';
+  padding-left: 6px;
+}
+
+#works .content .info .detail dd {
+  font-size: 1.4rem;
+  margin: 6px 0 0;
+}
+
+#works .content .body {
+  width: calc(100% - 340px);
+  margin-bottom: 50px;
+}
+
+#works .content .body .thumb img {
+  width: 100%;
+}
+
+#works .content .back {
+  text-align: center;
+  margin: 30px 0;
+}
+
+#works .tag {
+  display: flex;
+  font-size: 1.4rem;
+  margin: 10px 0 2px;
+}
+
+#works .tag li:not(:last-child)::after {
+  content: '/';
+  padding: 0 6px;
 }

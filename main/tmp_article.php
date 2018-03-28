@@ -4,56 +4,55 @@
   <meta charset="utf-8">
   <title><?=$row['title'] ?>| Client Works</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Bubbler+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet">
  </head>
  <body id="works">
   <header>
    <h1><a href="./">Client Works</a></h1>
+   <p class="flow"><?=$row['flow'] ?></p>
   </header>
   <main>
-  <article>
+  <article class="content">
    <section class="info">
     <div class="head">
-     <h2><?=$row['title'] ?></h2>
-     <ul>
+     <ul class="tag">
       <?=$tag."\n" ?>
      </ul>
+     <h2><?=$row['title'] ?></h2>
     </div>
-    <div class="detail">
+    <dl class="detail">
      <?php
      if($row['client']){
-      print '<dl><dt>Client</dt><dd>'.$row['client'].'</dd></dl>'."\n\t";
+      print '<dt>Client</dt><dd>'.$row['client'].'</dd>'."\n\t";
      }
      if($row['url']){
-      print '<dl><dt>URL</dt><dd><a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a></dd></dl>'."\n";
+      print '<dt>URL</dt><dd><a href="'.$row['url'].'" target="_blank">'.$row['url'].'</a></dd>'."\n";
      }
      ?>
-     <dl>
-      <dt>Scope</dt>
-      <dd>
-       <ul>
-        <?=$scope."\n" ?>
-       </ul>
-      </dd>
-     </dl>
+     <dt>Scope</dt>
+     <dd>
+      <ul>
+       <?=$scope."\n" ?>
+      </ul>
+     </dd>
      <?php
      if($row['source']){
-      print '<dl><dt>Source</dt><dd>'.$row['source'].'</dd></dl>'."\n\t";
+      print '<dt>Source</dt><dd>'.$row['source'].'</dd>'."\n\t";
      }
      ?>
-     <dl>
-      <dt>DATE</dt>
-      <dd><?=date('Y.m', strtotime($row['releaseDate'])) ?></dd>
-     </dl>
-    </div>
+     <dt>DATE</dt>
+     <dd><?=date('Y.m', strtotime($row['releaseDate'])) ?></dd>
+    </dl>
    </section>
-   <section class="content">
+   <section class="body">
     <div class="thumb"><img src="imgs/<?=$row['thumb'] ?>" alt=""></div>
     <div class="comment">
      <?=html_entity_decode($row['summary'], ENT_QUOTES)."\n" ?>
     </div>
    </section>
   </article>
+  <p class="back"><a href="./">back</a></p>
   </main>
  </body>
 </html>
