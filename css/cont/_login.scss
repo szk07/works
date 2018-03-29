@@ -1,4 +1,4 @@
-$admin-color: #f16272;
+$admin-color: #ff7f7f;
 .login_wrap{
  background: #fff;
  box-sizing: border-box;
@@ -7,8 +7,7 @@ $admin-color: #f16272;
  margin: 10rem auto 0;
  padding: 20px 30px;
  h1{
-  font-size: 3rem;
-  text-align: center;
+  font-size: 3.6rem;
   margin: 10px 0;
  }
  button{
@@ -25,7 +24,7 @@ $admin-color: #f16272;
   cursor: pointer;
   transition: .3s;
   &:hover{
-   background: #ee3e52;
+   background: #f16272;
   }
  }
 }

@@ -13,6 +13,7 @@ if(!empty($_POST)){
  $client = !empty($_POST['client']) ? es($_POST['client']) : '';
  $url = !empty($_POST['url']) ? es($_POST['url']) : '';
  $releaseDate = !empty($_POST['releaseDate']) ? es($_POST['releaseDate']) : '';
+ $source = !empty($_POST['source']) ? es($_POST['source']) : '';
  $flow = es($_POST['flow']);
  $summary = es($_POST['summary']);
  if(!empty($_POST['tag']) && is_array($_POST['tag'])){
@@ -36,8 +37,8 @@ if(!empty($_POST)){
 
  try{
   $db = connect();
-  $sql = 'INSERT INTO works(title, client, url, releaseDate, tag, scope, thumb, summary)
-          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :thumb, :flow, :summary)';
+  $sql = 'INSERT INTO works(title, client, url, releaseDate, tag, scope, source, thumb, flow, summary)
+          VALUES (:title, :client, :url, :releaseDate, :tag, :scope, :source, :thumb, :flow, :summary)';
   $stmt = $db->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
   $stmt->execute(array(':title' => $title,
                        ':client' => $client,
@@ -45,6 +46,7 @@ if(!empty($_POST)){
                        ':releaseDate' => $releaseDate,
                        ':tag' => $tag,
                        ':scope' => $scope,
+                       ':source' => $source,
                        ':thumb' => $tmb,
                        ':flow' => $flow,
                        ':summary' => $summary));
@@ -93,6 +95,14 @@ if(!empty($_POST)){
      <dd><input type="text" name="title" required></dd>
     </dl>
     <dl>
+     <dt>クライアント</dt>
+     <dd><input type="text" name="client"></dd>
+    </dl>
+    <dl>
+     <dt>URL</dt>
+     <dd><input type="url" name="url" value="http://"></dd>
+    </dl>
+    <dl>
      <dt>タグ</dt>
      <dd>
      <?php
@@ -111,12 +121,8 @@ if(!empty($_POST)){
      </dd>
     </dl>
     <dl>
-     <dt>クライアント</dt>
-     <dd><input type="text" name="client"></dd>
-    </dl>
-    <dl>
-     <dt>URL</dt>
-     <dd><input type="url" name="url" value="http://"></dd>
+     <dt>公開日</dt>
+     <dd><input type="date" name="releaseDate"></dd>
     </dl>
     <dl>
      <dt>担当個所</dt>
@@ -137,8 +143,8 @@ if(!empty($_POST)){
      </dd>
     </dl>
     <dl>
-     <dt>公開日</dt>
-     <dd><input type="date" name="releaseDate"></dd>
+     <dt>制作会社</dt>
+     <dd><input type="text" name="source"></dd>
     </dl>
     <dl>
      <dt>サムネイル画像</dt>

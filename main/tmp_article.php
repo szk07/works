@@ -4,8 +4,7 @@
   <meta charset="utf-8">
   <title><?=$row['title'] ?>| Client Works</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400|Titillium+Web" rel="stylesheet">
  </head>
  <body id="works">
   <header>

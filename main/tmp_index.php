@@ -4,25 +4,33 @@
   <meta charset="utf-8">
   <title>Client Works</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400|Titillium+Web" rel="stylesheet">
  </head>
  <body id="works">
   <header>
    <h1><a href="./">Client Works</a></h1>
-   <ul class="filter">
-    <li><a href="./">ALL</a></li>
-    <?php
-    try{
-     $tag_stmt->execute();
-     while($trow = $tag_stmt->fetch(PDO::FETCH_ASSOC)){
-      print '<li><a href="?tag='.$trow["tid"].'">'.$trow["tname"].'</a></li>'."\n";
+   <div class="filter">
+    <ul>
+     <li><a href="./">ALL</a></li>
+     <?php
+     try{
+      $tag_stmt->execute();
+      while($trow = $tag_stmt->fetch(PDO::FETCH_ASSOC)){
+       $active = '';
+       if(isset($tag)){
+        if(strpos($trow['tid'], $tag) !== false){
+         $active = ' class="active"';
+        }
+       }
+       print '<li'.$active.'><a href="?tag='.$trow["tid"].'">'.$trow["tname"].'</a></li>'."\n";
+      }
+     }catch(PDOException $e){
+      exit('読み込みエラーが発生しました。');
      }
-    }catch(PDOException $e){
-     exit('読み込みエラーが発生しました。');
-    }
-    ?>
-   </ul>
+     ?>
+    </ul>
+    <span id="filter-slide"></span>
+   </div>
   </header>
   <main>
    <ul class="works-list">
@@ -69,5 +77,7 @@ EOD;
     ?>
    </ul>
   </main>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="../js/works.js"></script>
  </body>
 </html>

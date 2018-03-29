@@ -67,28 +67,23 @@ try{
  }else if(isset($_GET['tag'])){
   $page = 2;
   $tag = es($_GET['tag']);
+  $stmt = stmtWorks();
+  $stmt->execute();
+  $tag_stmt = stmtTags();
+  $tag_stmt->execute();
+  $select_tag = selectTag($tag);
  }else{
   $page = 0;
+  $stmt = stmtWorks();
+  $stmt->execute();
+  $tag_stmt = stmtTags();
+  $tag_stmt->execute();
  }
 
  switch ($page) {
-  case 1:
-   include('tmp_article.php');
-   break;
-  case 2:
-   $stmt = stmtWorks();
-   $stmt->execute();
-   $tag_stmt = stmtTags();
-   $tag_stmt->execute();
-   $select_tag = selectTag($tag);
-   include('tmp_index.php');
-   break;
-  default:
-   $stmt = stmtWorks();
-   $stmt->execute();
-   $tag_stmt = stmtTags();
-   $tag_stmt->execute();
-   include('tmp_index.php');
+  case 1: include('tmp_article.php');break;
+  case 2: include('tmp_index.php');break;
+  default: include('tmp_index.php');
  }
 
  $db = NULL;

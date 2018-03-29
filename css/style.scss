@@ -6,6 +6,9 @@ $mediaQuery-pc: 1000px;
  font-size: 5rem;
  font-weight: 300;
 }
+@mixin webFont {
+ font-family: 'Titillium Web', sans-serif;
+}
 
 @import "set/mixin";
 @import "set/base";
@@ -22,30 +25,45 @@ a{
   transition: .3s;
  }
 }
+h1{
+ font-family: 'Amatic SC', cursive;
+ font-size: 6rem;
+ text-align: center;
+}
+body{
+ font-family: -apple-system, 'BlinkMacSystemFont', Sans-Serif;
+}
 
 /* Contents */
 @import "cont/works";
 @import "cont/login";
 
+
 #works{
- font-family: 'Titillium Web', sans-serif;
- font-weight: lighter;
  header{
   min-height: 160px;
   padding: 80px 0 50px;
-  h1{
-   font-size: 6rem;
-   text-align: center;
-   a:hover{
-    color: #111;
-   }
+  h1 a:hover{
+   color: #111;
   }
   .filter{
-   display: flex;
-   justify-content: center;
-   margin: 50px 0 30px;
-   li{
-    padding: 0 20px;
+   position: relative;
+   max-width: 1000px;
+   margin: 0 auto;
+   ul{
+    display: flex;
+    justify-content: center;
+    @include webFont;
+    margin: 50px 0 30px;
+    li{
+     text-align: center;
+     letter-spacing: .1rem;
+     min-width: 30px;
+     padding: 0 20px;
+    }
+    .active a{
+     color: #666;
+    }
    }
   }
   .flow{
@@ -54,11 +72,20 @@ a{
    text-align: center;
    margin: 30px 0;
   }
+  #filter-slide{
+   position: absolute;
+   bottom: -6px;
+   left: 270px;
+   width: 2rem;
+   height: 2px;
+   background: #bbb;
+   transition: all .3s ease;
+  }
  }
  main{
   display: block;
   max-width: 1050px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
  }
  // 一覧
  .works-list{
@@ -98,6 +125,7 @@ a{
  // 詳細ページ
  .content{
   display: flex;
+  font-family: 'Titillium Web', sans-serif;
   .info{
    width: 340px;
    padding: 0 20px;
@@ -108,18 +136,19 @@ a{
    }
    .detail{
     margin-top: 50px;
+    letter-spacing: .4rem;
     dt{
      color: #888;
-     font-size: 1.2rem;
-     margin-top: 20px;
+     font-size: 1.1rem;
+     margin-top: 30px;
      &::after{
       content: ':';
       padding-left: 6px;
      }
     }
     dd{
-     font-size: 1.4rem;
-     margin: 6px 0 0;
+     font-size: 1.2rem;
+     margin: 2px 0 0;
     }
    }
   }
@@ -130,19 +159,50 @@ a{
     width: 100%;
    }
   }
-  .back{
-   text-align: center;
-   margin: 30px 0;
-  }
  }
  // 共通
  .tag{
   display: flex;
+  @include webFont;
   font-size: 1.4rem;
+  letter-spacing: .1rem;
   margin: 10px 0 2px;
   li:not(:last-child)::after{
    content: '/';
    padding: 0 6px;
+  }
+ }
+ .back{
+  @include webFont;
+  font-size: 2rem;
+  text-align: center;
+  margin: 50px 0;
+  a{
+   position: relative;
+   color: #111;
+   padding: 0 26px;
+   transition: .3s;
+   &::before, &::after{
+    content: '';
+    display: inline-block;
+    border: solid #aaa;
+    position: absolute;
+    top: 0;
+    width: 8px;
+    height: 100%;
+   }
+   &::before{
+    left: 0;
+    border-width: 1px 0 1px 1px;
+   }
+   &::after{
+    right: 0;
+    border-width: 1px 1px 1px 0;
+   }
+   &:hover{
+    color: #666;
+    padding: 0 20px;
+   }
   }
  }
 }
