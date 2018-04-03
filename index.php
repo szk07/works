@@ -3,6 +3,11 @@ require_once 'php/Connect.php';
 require_once 'php/Escape.php';
 session_start();
 
+if($_SESSION['user']){
+ header('Location: main/');
+ exit();
+}
+
 if(!empty($_POST)){
  $user = es($_POST['user']);
  $pass = es($_POST['pass']);

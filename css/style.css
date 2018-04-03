@@ -27,6 +27,7 @@ body {
   background: #f6f6f6;
   background-image: url(../imgs/bg.png);
   font-size: 1.6rem;
+  letter-spacing: .1rem;
   margin: 15px;
   height: 100%;
 }
@@ -173,7 +174,7 @@ body {
   background: #fff;
   box-sizing: border-box;
   box-shadow: 0 0 4px rgba(200, 200, 200, 0.3);
-  max-width: 350px;
+  max-width: 360px;
   margin: 10rem auto 0;
   padding: 20px 30px;
 }
@@ -257,7 +258,7 @@ body {
 .note {
   color: #888;
   font-size: 1.2rem;
-  width: 350px;
+  width: 360px;
   margin: 20px auto 0;
 }
 
@@ -303,7 +304,7 @@ body {
 }
 
 #works header .flow {
-  color: #888;
+  color: #666;
   font-size: 1.4rem;
   text-align: center;
   margin: 30px 0;
@@ -363,10 +364,12 @@ body {
 
 #works .content {
   display: flex;
+  justify-content: space-between;
   font-family: 'Titillium Web', sans-serif;
 }
 
 #works .content .info {
+  box-sizing: border-box;
   width: 340px;
   padding: 0 20px;
 }
@@ -398,21 +401,43 @@ body {
   margin: 2px 0 0;
 }
 
+#works .content .info .detail dd li {
+  margin-bottom: 4px;
+}
+
 #works .content .body {
-  width: calc(100% - 340px);
+  width: 680px;
   margin-bottom: 50px;
 }
 
+#works .content .body .thumb {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
 #works .content .body .thumb img {
+  display: block;
   width: 100%;
+}
+
+#works .content .body .capture {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+#works .content .body .capture img {
+  display: block;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 #works .tag {
   display: flex;
   font-family: 'Titillium Web', sans-serif;
+  color: #666;
   font-size: 1.4rem;
   letter-spacing: .1rem;
-  margin: 10px 0 2px;
+  margin: 10px 0 6px;
 }
 
 #works .tag li:not(:last-child)::after {

@@ -67,7 +67,7 @@ body{
    }
   }
   .flow{
-   color: #888;
+   color: #666;
    font-size: 1.4rem;
    text-align: center;
    margin: 30px 0;
@@ -125,8 +125,10 @@ body{
  // 詳細ページ
  .content{
   display: flex;
+  justify-content: space-between;
   font-family: 'Titillium Web', sans-serif;
   .info{
+   box-sizing: border-box;
    width: 340px;
    padding: 0 20px;
    h2{
@@ -149,14 +151,31 @@ body{
     dd{
      font-size: 1.2rem;
      margin: 2px 0 0;
+     li{
+      margin-bottom: 4px;
+     }
     }
    }
   }
   .body{
-   width: calc(100% - 340px);
+   width: 680px;
    margin-bottom: 50px;
-   .thumb img{
-    width: 100%;
+   .thumb{
+    box-shadow: 0 0 2px rgba(0,0,0,.2);
+    img{
+     display: block;
+     width: 100%;
+    }
+   }
+   .capture{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
+    img{
+     display: block;
+     box-shadow: 0 0 2px rgba(0,0,0,.2);
+    }
    }
   }
  }
@@ -164,9 +183,10 @@ body{
  .tag{
   display: flex;
   @include webFont;
+  color: #666;
   font-size: 1.4rem;
   letter-spacing: .1rem;
-  margin: 10px 0 2px;
+  margin: 10px 0 6px;
   li:not(:last-child)::after{
    content: '/';
    padding: 0 6px;

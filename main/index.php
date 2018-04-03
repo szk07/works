@@ -12,6 +12,7 @@ if(!$_SESSION['user']){
 try{
  $db = connect();
 
+ // 共通ステートメント
  function stmtWorks(){
   global $db;
   $sql ='SELECT * FROM works ORDER BY releaseDate desc';
@@ -41,6 +42,7 @@ try{
  }
 
  if(isset($_GET['id'])){
+  // 個別ページ
   $id = es($_GET['id']);
   $sql = 'SELECT * FROM works WHERE id='.$id;
   $stmt = $db->prepare($sql);
@@ -65,6 +67,7 @@ try{
    $page = 0;
   }
  }else if(isset($_GET['tag'])){
+  // フィルター
   $page = 2;
   $tag = es($_GET['tag']);
   $stmt = stmtWorks();
@@ -73,6 +76,7 @@ try{
   $tag_stmt->execute();
   $select_tag = selectTag($tag);
  }else{
+  // 一覧
   $page = 0;
   $stmt = stmtWorks();
   $stmt->execute();

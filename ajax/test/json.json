@@ -1,0 +1,27 @@
+[
+ {
+  "id":"2",
+  "title":"Portfolio",
+  "client":"",
+  "url":"http:\/\/szk07.site",
+  "releaseDate":"2018-04-01",
+  "tag":"1,2,3,5",
+  "scope":"1,2,3,4,6,7",
+  "source":"",
+  "thumb":"portfolio.jpg",
+  "flow":"制作に携わった作品をまとめたポートフォリオサイトを制作しました。",
+  "summary":"&lt;p&gt;シンプルさをベースに作りつつ、JavaScriptやPHPには今のスキルでできる限りの機能を詰め込みました。&lt;\/p&gt;"
+ },{
+  "id":"1",
+  "title":"ばりすぽ",
+  "client":"岡崎市障がい者福祉団体連合会",
+  "url":"http:\/\/barisupo.com\/",
+  "releaseDate":"2018-03-31",
+  "tag":"1,2,3,5",
+  "scope":"1,2,3,4,6,7",
+  "source":"",
+  "thumb":"barisupo.jpg",
+  "flow":"平成28年度に発行した岡崎市のバリアフリー情報冊子「ばりすぽ」のweb版を担当しました。",
+  "summary":"&lt;p&gt;平成28年度に冊子で公開した「ばりすぽ」のweb版として制作しました。&lt;br&gt;\nトップページなど一部のデザインは外注し、残りはすべて担当しています。&lt;\/p&gt;\n&lt;p&gt;冊子に掲載したバリアフリー情報以外にも、ページの問題で冊子に掲載できなかった施設や写真を載せたいと要望があった為、詳細ページのデザインをシングルカラムで設計・デザインし直すことで多くの情報を掲載できるように配慮しました。&lt;\/p&gt;\n&lt;p&gt;ピクトグラムには、管理のしやすさと将来的なレスポンシブ化に備えてSVGスプライトを採用しています。&lt;\/p&gt;\n&lt;div class=&quot;capture&quot;&gt;\n &lt;img src=&quot;imgs\/barisupo_index.jpg&quot; alt=&quot;&quot;&gt;\n &lt;img src=&quot;imgs\/barisupo_article.jpg&quot; alt=&quot;&quot;&gt;\n&lt;\/div&gt;"
+ }
+]
