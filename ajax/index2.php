@@ -16,15 +16,21 @@
      $.ajax({
       url: 'test/json.json',
       dataType: 'json',
-      success: function(json){
-       $('#ajax').append('<p>読み込み成功しました。</p>');
-       $('#ajax').append('<p>'+ json[0] +'</p>');
-      },
-      error: function(json){
-       $('#ajax').append('<p>読み込み失敗しました。</p>');
-      }
+     }).done(function(data){
+      var xxx = jsonParser(data);
+      $('#ajax').html(xxx);
+      $('#ajax').append('<p>読み込み成功しました。</p>');
      });
     });
+    function jsonParser(data){
+     var xx = '';
+     var count = 0;
+     $(data).each( function() {
+      xx += data[count].id + ':' + data[count].title + '<br>' ;
+      count++;
+     });
+     return xx;
+    }
    });
   </script>
  </body>
